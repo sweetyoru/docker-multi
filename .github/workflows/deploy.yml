@@ -116,7 +116,7 @@ jobs:
       - name: Make the deployment package
         run: zip deploy.zip docker-compose.yml
 
-      - name: Deploy to aws beantalk
+      - name: Deploy to aws beanstalk
         uses: einaregilsson/beanstalk-deploy@master
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}

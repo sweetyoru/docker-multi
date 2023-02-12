@@ -23,7 +23,7 @@ pgClient.on("connect", (client) => {
   client
     .query("CREATE TABLE IF NOT EXISTS values (number INT)")
     .catch((err) => console.error(err));
-  console.log ('db connected!!!!!!!!!!!!')
+  console.log ('db connected!!!!!!!!!!!!');
 });
 
 // Redis Client Setup
@@ -34,6 +34,7 @@ const redisClient = redis.createClient({
   retry_strategy: () => 1000,
 });
 const redisPublisher = redisClient.duplicate();
+  console.log ('redis connected!!!!!!!!!!!!');
 
 // Express route handlers
 
