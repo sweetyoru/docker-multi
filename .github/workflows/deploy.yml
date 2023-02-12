@@ -106,3 +106,23 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-multi-worker:latest
           push: true
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-release
+    steps:
+      - name: Check out the source code
+        uses: actions/checkout@master
+
+      - name: Make the deployment package
+        run: zip deploy.zip docker-compose.yml
+
+      - name: Deploy to aws beantalk
+        uses: einaregilsson/beanstalk-deploy@master
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: docker-multi
+          environment_name: Dockermulti-env
+          version_label: 1
+          region: us-east-1
+          deployment_package: deploy.zip
